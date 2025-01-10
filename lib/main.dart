@@ -10,7 +10,7 @@ void main() async {
   await Hive.openBox('todos');
 
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown]);
 
   runApp(const MyApp());
 }
@@ -41,8 +41,8 @@ class HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _pages = [
     TaskList(),
-    Center(child: Text('Search Page', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Profile Page', style: TextStyle(fontSize: 24))),
+    Center(child: Text('Search Page', style: TextStyle(fontSize: 24, color: Colors.grey))),
+    Center(child: Text('Profile Page', style: TextStyle(fontSize: 24, color: Colors.grey))),
   ];
 
   void _onTabTapped(int index) {

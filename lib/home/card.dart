@@ -69,13 +69,16 @@ class TaskCardState extends State<TaskCard> {
             children: [
               Text(
                 widget.title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
+                  decoration: _isChecked ? TextDecoration.lineThrough : null,
+                  color: _isChecked ? Colors.grey : Colors.white,
                 ),
               ),
               Checkbox(
                 value: _isChecked,
+                activeColor: Colors.deepPurple,
                 onChanged: (bool? value) {
                   setState(() {
                     _isChecked = value ?? false;

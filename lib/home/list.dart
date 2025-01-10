@@ -23,18 +23,27 @@ class TaskListWidgetState extends State<TaskList> {
     return ValueListenableBuilder(
       valueListenable: box.listenable(),
       builder: (context, Box box, _) {
-        return ListView.builder(
-          itemCount: box.length,
-          itemBuilder: (context, index) {
-            var task = box.getAt(index);
-            return TaskCard(
-              title: task['title'],
-              description: task['description'],
-              completed: task['completed'],
-              taskIndex: index,
-            );
-          },
-        );
+        if (box.isEmpty) {
+          return Center(
+            child: Text(
+              "Don't have tasks",
+              style: TextStyle(fontSize: 24, color: Colors.grey),
+            ),
+          );
+        } else {
+          return ListView.builder(
+            itemCount: box.length,
+            itemBuilder: (context, index) {
+              var task = box.getAt(index);
+              return TaskCard(
+                title: task['title'],
+                description: task['description'],
+                completed: task['completed'],
+                taskIndex: index,
+              );
+            },
+          );
+        }
       },
     );
   }
