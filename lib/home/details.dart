@@ -69,8 +69,8 @@ class TaskDetailsState extends State<TaskDetails> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Title section
             TextField(
@@ -95,7 +95,8 @@ class TaskDetailsState extends State<TaskDetails> {
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
               ),
-              maxLines: 5,
+              maxLines: null,
+              minLines: 8,
               style: const TextStyle(
                 fontSize: 16,
                 height: 1.5,
@@ -117,7 +118,10 @@ class TaskDetailsState extends State<TaskDetails> {
                 backgroundColor: Colors.deepPurple
               ),
               onPressed: _updateTaskInBox,
-              child: const Text('Save Changes'),
+              child: const Text(
+                'Save Changes',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),

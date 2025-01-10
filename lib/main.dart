@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-// import 'package:flutter/services.dart';
-import 'task/list.dart';
-import 'task/add_task.dart';
+import 'package:flutter/services.dart';
+import 'home/list.dart';
+import 'home/add_task.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('todos');
 
-  // WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown]);
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(const MyApp());
 }
@@ -24,31 +24,82 @@ class MyApp extends StatelessWidget {
       title: 'Task Flow',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: Scaffold(
-        appBar: AppBar(
-          title:
-            Text(
-              'Task Flow',
-              style:  TextStyle(
-                fontWeight: FontWeight.bold
-              )
-            ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  HomeScreenState createState() => HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    TaskList(),
+    Center(child: Text('Search Page', style: TextStyle(fontSize: 24))),
+    Center(child: Text('Profile Page', style: TextStyle(fontSize: 24))),
+  ];
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Task Flow',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        body: TaskList(),
-        floatingActionButton: Builder(
-          builder: (BuildContext context) {
-            return FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddTaskScreen(),
-                  ),
-                );
-              },
-            );
-          },
+      ),
+      body: _pages[_currentIndex],
+      floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
+        child: Icon(Icons.add, color: Colors.white),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddTaskScreen(),
+            ),
+          );
+        },
+      ) : null,
+      bottomNavigationBar: Theme(
+        data: ThemeData.dark().copyWith(
+          splashFactory: NoSplash.splashFactory,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: _onTabTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+          selectedItemColor: Colors.deepPurple,
+          selectedFontSize: 0,
+          unselectedFontSize: 0,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          iconSize: 32,
         ),
       ),
     );
