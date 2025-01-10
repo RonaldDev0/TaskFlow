@@ -10,44 +10,28 @@ class TaskList extends StatefulWidget {
 }
 
 class TaskListWidgetState extends State<TaskList> {
-  late Box todosBox;
+  late Box box;
 
   @override
   void initState() {
     super.initState();
-    todosBox = Hive.box('todos');
+    box = Hive.box('todos');
   }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: todosBox.listenable(),
+      valueListenable: box.listenable(),
       builder: (context, Box box, _) {
-
-        if (box.isEmpty) {
-          return const Center(
-            child: Text(
-              'No tasks available. Add a task!',
-              style: TextStyle(fontSize: 18),
-            ),
-          );
-        }
-
         return ListView.builder(
           itemCount: box.length,
           itemBuilder: (context, index) {
-
-            final task = Map<String, dynamic>.from(box.getAt(index));
-
+            var task = box.getAt(index);
             return TaskCard(
               title: task['title'],
-              isChecked: task['completed'],
-              onChanged: (bool? value) {
-                setState(() {
-                  task['isChecked'] = value;
-                  box.putAt(index, task);
-                });
-              },
+              description: task['description'],
+              completed: task['completed'],
+              taskIndex: index,
             );
           },
         );

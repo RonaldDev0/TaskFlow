@@ -48,7 +48,15 @@ class AddTaskScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                padding: EdgeInsets.symmetric(horizontal: 123, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                textStyle: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                backgroundColor: Colors.deepPurple
               ),
               onPressed: () {
                 // Save task

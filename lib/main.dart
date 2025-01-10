@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'task/list.dart';
 import 'task/add_task.dart';
 
@@ -9,8 +9,8 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox('todos');
 
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown]);
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown]);
 
   runApp(const MyApp());
 }
