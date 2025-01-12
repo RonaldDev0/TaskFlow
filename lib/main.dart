@@ -3,6 +3,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/services.dart';
 import 'home/list.dart';
 import 'home/add_task.dart';
+import 'rank/rank.dart';
+import 'profile/profile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,8 +43,8 @@ class HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _pages = [
     TaskList(),
-    Center(child: Text('Search Page', style: TextStyle(fontSize: 24, color: Colors.grey))),
-    Center(child: Text('Profile Page', style: TextStyle(fontSize: 24, color: Colors.grey))),
+    Rank(),
+    Profile(),
   ];
 
   void _onTabTapped(int index) {
@@ -86,8 +88,8 @@ class HomeScreenState extends State<HomeScreen> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
+              icon: Icon(Icons.equalizer_rounded),
+              label: 'Rank',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
